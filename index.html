@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="description" content="面向大学生宿舍的个人物品管理工具，每一件东西都有明确功能" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="宿舍管理" />
+    <title>宿舍极简物品管理</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app" class="h-screen w-full bg-gray-50 flex flex-col overflow-hidden relative"></div>
+    <script src="script.js"></script>
+    <script>
+      // 注册 Service Worker，实现 PWA 离线缓存
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker 注册成功:', reg.scope))
+            .catch(err => console.error('Service Worker 注册失败:', err));
+        });
+      }
+    </script>
+  </body>
+</html>
