@@ -1,6 +1,5 @@
 const CACHE_NAME = 'dorm-manager-react-v1';
 
-// 安装时缓存核心入口和静态资源
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -17,7 +16,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// 激活时清理旧缓存
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -30,11 +28,9 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 拦截请求：优先缓存，动态缓存 JS/CSS/图片资源
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // 跳过非 GET 请求和 chrome-extension
   if (event.request.method !== 'GET' || url.protocol === 'chrome-extension:') {
     return;
   }
@@ -45,7 +41,6 @@ self.addEventListener('fetch', event => {
         return cachedResponse;
       }
       return fetch(event.request).then(networkResponse => {
-        // 缓存同源静态资源（JS/CSS/图片）
         if (url.origin === self.location.origin && 
             (url.pathname.endsWith('.js') || url.pathname.endsWith('.css') || 
              url.pathname.endsWith('.png') || url.pathname.endsWith('.ico') ||
@@ -57,7 +52,6 @@ self.addEventListener('fetch', event => {
         }
         return networkResponse;
       }).catch(() => {
-        // 离线时返回缓存
         return cachedResponse;
       });
     })

@@ -3,60 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>宿舍管理 - 安装到桌面</title>
+<title>宿舍极简物品管理 - 下载安装</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f6f6f8;color:#1a1a2e;line-height:1.6;padding:20px}
-.container{max-width:600px;margin:0 auto;padding:20px 0}
-.card{background:#fff;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-h1{font-size:1.5rem;margin-bottom:8px}
-.subtitle{color:#555;font-size:0.95rem}
-.btn{display:inline-block;padding:12px 24px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:12px;font-size:1rem;font-weight:600;margin:8px 0}
-.btn:hover{background:#2563eb}
-.steps{padding-left:20px}
-.steps li{margin-bottom:12px}
-.platform{color:#3b82f6;font-weight:600;margin-top:16px;margin-bottom:8px}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  color: #fff;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+.hero { text-align: center; margin-bottom: 48px; }
+.hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+.hero p { font-size: 1.1rem; color: #94a3b8; max-width: 500px; margin: 0 auto; }
+
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+
+.platform-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.icon-circle {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+}
+.win-bg { background: #3b82f6; }
+.android-bg { background: #10b981; }
+.browser-bg { background: #f59e0b; }
+
+.platform-name { font-size: 1.25rem; font-weight: 600; }
+.platform-desc { color: #94a3b8; font-size: 0.9rem; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 12px;
+  font-size: 1rem; font-weight: 600; text-decoration: none;
+  transition: all 0.2s; border: none; cursor: pointer;
+}
+.btn-primary { background: #3b82f6; color: #fff; }
+.btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+.btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+.steps { padding-left: 24px; margin-top: 16px; }
+.steps li { margin-bottom: 8px; color: #cbd5e1; font-size: 0.95rem; }
+.tip { color: #94a3b8; font-size: 0.85rem; margin-top: 12px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 3px solid #3b82f6; }
+
+.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+
+.divider { height: 1px; background: rgba(255,255,255,0.1); margin: 40px 0; }
+
+.footer { text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 40px; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8rem; }
+  .card { padding: 24px; }
+  .platform-header { gap: 12px; }
+  .icon-circle { width: 48px; height: 48px; font-size: 24px; }
+}
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="card">
+  <div class="hero">
     <h1>宿舍极简物品管理</h1>
-    <p class="subtitle">安装到桌面，无需每次打开浏览器</p>
+    <p>每一件东西都有明确功能。安装到桌面，无需每次打开浏览器。</p>
   </div>
-  
+
+  <!-- Windows -->
   <div class="card">
-    <div class="platform">Windows 电脑</div>
-    <p>下载安装包，解压后把 <b>「宿舍管理.url」</b> 放到桌面，双击即可打开。</p>
-    <a class="btn" href="dorm-manager-desktop.zip" download>下载 Windows 安装包</a>
+    <div class="platform-header">
+      <div class="icon-circle win-bg">&#x1F5A5;</div>
+      <div>
+        <div class="platform-name">Windows 电脑</div>
+        <div class="platform-desc">下载安装包，双击即可创建桌面快捷方式</div>
+      </div>
+    </div>
+    <div class="actions">
+      <a href="dorm-manager-desktop.zip" class="btn btn-primary" download>下载 Windows 安装包</a>
+      <a href="https://hwency379-coder.github.io/dorm-manager/" class="btn btn-secondary">直接使用网页版</a>
+    </div>
     <ol class="steps">
-      <li>点击上面的蓝色按钮下载 <b>dorm-manager-desktop.zip</b></li>
-      <li>解压 zip，得到「宿舍管理.url」和「icon.ico」</li>
-      <li>把「宿舍管理.url」放到桌面</li>
-      <li>双击图标即可打开应用</li>
+      <li>点击「下载 Windows 安装包」</li>
+      <li>解压下载的 zip 文件</li>
+      <li>将「宿舍管理.url」拖到桌面</li>
+      <li>双击图标即可打开</li>
     </ol>
+    <div class="tip">提示：Windows 11 用户也可以直接用 Edge 浏览器打开链接，点击「安装应用」按钮。</div>
   </div>
-  
+
+  <!-- Android -->
   <div class="card">
-    <div class="platform">Android 手机</div>
-    <p>用 Chrome 浏览器打开链接，添加到主屏幕。</p>
+    <div class="platform-header">
+      <div class="icon-circle android-bg">&#x1F4F1;</div>
+      <div>
+        <div class="platform-name">Android 手机</div>
+        <div class="platform-desc">Chrome 浏览器添加到主屏幕，像原生 App 一样使用</div>
+      </div>
+    </div>
+    <div class="actions">
+      <a href="https://hwency379-coder.github.io/dorm-manager/" class="btn btn-primary">打开应用</a>
+    </div>
     <ol class="steps">
-      <li>用 Chrome 打开 <b>https://hwency379-coder.github.io/dorm-manager/</b></li>
-      <li>点击右上角 <b>⋮</b> 菜单</li>
+      <li>用 Chrome 浏览器打开上面的链接</li>
+      <li>点击右上角菜单 <b>&#x22EE;</b></li>
       <li>选择「添加到主屏幕」或「安装应用」</li>
-      <li>桌面出现图标</li>
+      <li>桌面出现图标，点击像 App 一样打开</li>
     </ol>
+    <div class="tip">支持离线使用：首次加载后，关闭网络也能打开应用。</div>
   </div>
-  
+
+  <!-- 浏览器直接打开 -->
   <div class="card">
-    <div class="platform">iPhone</div>
-    <p>用 Safari 打开链接，添加到主屏幕。</p>
-    <ol class="steps">
-      <li>用 Safari 打开链接</li>
-      <li>点击底部 <b>分享按钮 ↑</b></li>
-      <li>下滑找到「添加到主屏幕」</li>
-      <li>点击添加</li>
-    </ol>
+    <div class="platform-header">
+      <div class="icon-circle browser-bg">&#x1F310;</div>
+      <div>
+        <div class="platform-name">所有浏览器直接打开</div>
+        <div class="platform-desc">无需安装任何插件，Chrome / Safari / Edge / Firefox 均可使用</div>
+      </div>
+    </div>
+    <div class="actions">
+      <a href="https://hwency379-coder.github.io/dorm-manager/" class="btn btn-primary">立即打开</a>
+    </div>
+    <div class="tip">所有浏览器支持：Chrome、Safari、Edge、Firefox、微信内置浏览器、QQ 浏览器。推荐 Chrome 以获得最佳体验。</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="footer">
+    <p>数据保存在本地，不上传服务器。定期导出 JSON 备份保护数据安全。</p>
+    <p style="margin-top:8px">版本 v3.0 | 宿舍极简物品管理</p>
   </div>
 </div>
 </body>
