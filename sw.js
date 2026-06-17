@@ -1,21 +1,18 @@
-const CACHE_NAME = 'dorm-manager-v1';
-const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './style.css',
-  './script.js',
-  './manifest.json',
-  './icon-192x192.png',
-  './icon-512x512.png',
-  './favicon.ico',
-  'https://cdn.tailwindcss.com'
-];
+const CACHE_NAME = 'dorm-manager-react-v1';
 
-// 安装时缓存所有静态资源
+// 安装时缓存核心入口和静态资源
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS_TO_CACHE))
+      .then(cache => cache.addAll([
+        './',
+        './index.html',
+        './manifest.json',
+        './icon-192x192.png',
+        './icon-512x512.png',
+        './favicon.ico',
+        './apple-touch-icon.png'
+      ]))
       .then(() => self.skipWaiting())
   );
 });
@@ -33,25 +30,34 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 拦截请求，优先从缓存读取，缓存没有则网络请求并缓存
+// 拦截请求：优先缓存，动态缓存 JS/CSS/图片资源
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // 跳过非 GET 请求和 chrome-extension
+  if (event.request.method !== 'GET' || url.protocol === 'chrome-extension:') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) {
         return cachedResponse;
       }
       return fetch(event.request).then(networkResponse => {
-        // 不缓存非 GET 请求、chrome-extension 请求和第三方 API
-        if (event.request.method !== 'GET' ||
-            event.request.url.startsWith('chrome-extension://')) {
-          return networkResponse;
+        // 缓存同源静态资源（JS/CSS/图片）
+        if (url.origin === self.location.origin && 
+            (url.pathname.endsWith('.js') || url.pathname.endsWith('.css') || 
+             url.pathname.endsWith('.png') || url.pathname.endsWith('.ico') ||
+             url.pathname.endsWith('.jpg') || url.pathname.endsWith('.jpeg'))) {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
         }
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        });
+        return networkResponse;
       }).catch(() => {
-        // 离线时返回缓存（如果存在）
+        // 离线时返回缓存
         return cachedResponse;
       });
     })
